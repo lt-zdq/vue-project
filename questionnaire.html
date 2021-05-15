@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>questionnaier practice</title>
+        <!--import bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- 引入vue。开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+            [v-cloak]{
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container bg-light w-75 mt-5" id="app" v-cloak>
+            <!--
+                first page
+            -->
+            <div class="bg-white" v-if="pageNumber===1">
+                <div class="mb-5">
+                    <legend>{{pageNumber}}. Your gender:</legend>
+                    <input type="radio" id="male" v-model="gender" value="male" />
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" v-model="gender" value="female" />
+                    <label for="female">Female</label>
+                </div>
+                <button-group v-model="pageNumber" :total="total" :not-next-page="notNextPage" :not-submit="notSubmit"></button-group>
+            </div>
+            <!--
+                middle page
+            -->
+            <template class="bg-white" v-if="pageNumber !== 1 && pageNumber !== total">
+                <div class="mb-5">
+                    <legend>{{pageNumber}}. What fruits do you like? (choose two or three fruits)</legend>
+                    <label for="o1">apple</label>
+                    <input type="checkbox" id="o1" v-model="fruits" value="apple">
+                    <label for="o2">peach</label>
+                    <input type="checkbox" id="o2" v-model="fruits" value="peach">
+                    <label for="o3">orange</label>
+                    <input type="checkbox" id="o3" v-model="fruits" value="orange">
+                    <label for="o4">grape</label>
+                    <input type="checkbox" id="o4" v-model="fruits" value="grape">
+                    <label for="o5">banana</label>
+                    <input type="checkbox" id="o5" v-model="fruits" value="banana">
+                </div>
+                <button-group v-model="pageNumber" :total="total" :not-next-page="notNextPage" :not-submit="notSubmit"></button-group>
+            </template>
+            <!--
+                last page
+            -->
+            <template class="bg-white" v-if="pageNumber === total">
+                <div class="mb-5">
+                    <legend>{{pageNumber}}. Introduct your self. (at least 10 words)</legend>
+                    <input type="text" v-model="introduce">
+                </div>
+                <button-group v-model="pageNumber" :total="total" :not-next-page="notNextPage" :not-submit="notSubmit"></button-group>
+            </template>
+        </div>
+        <script src="./src/JS/button-group.js"></script>
+        <script src="./src/JS/questionnaier.js"></script>
+    </body>
+    </html>
